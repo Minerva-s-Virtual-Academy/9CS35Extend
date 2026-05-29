@@ -60,10 +60,12 @@
   /* Code Comparison Block */
   .code-compare-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
   @media (max-width: 768px) { .code-compare-container { grid-template-columns: 1fr; } }
-  .code-pane { background: #1a1a1a; color: #e2e8f0; padding: 15px; border-radius: 8px; font-family: monospace; font-size: 13px; line-height: 1.5; }
+  .code-pane { background: #1a1a1a; color: #e2e8f0; padding: 15px; border-radius: 8px; font-family: monospace; font-size: 13px; line-height: 1.6; white-space: nowrap; }
   .code-title { font-size: 12px; font-weight: bold; color: #4a5568; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.5px; }
   .bad-code { border-top: 3px solid #c62828; }
   .good-code { border-top: 3px solid #319795; }
+  .indent-1 { padding-left: 1.5rem; }
+  .indent-2 { padding-left: 3rem; }
   
   details { background: #fff; border: 1px solid #007BA6; border-radius: 4px; padding: 10px; cursor: pointer; margin-bottom: 10px; }
   details summary { color: #007BA6; font-weight: 600; font-size: 14px; }
@@ -159,30 +161,28 @@
       <div>
         <div class="code-title">Code A (Wastes Energy)</div>
         <div class="code-pane bad-code">
-SET list = [12, 45, 77, 32, 90]
-SET target = 45
-SET found = False
-
-FOR index = 0 TO len(list) - 1 DO
-  IF list[index] == target THEN
-    SET found = True
-  ENDIF
-ENDFOR
+          SET list = [12, 45, 77, 32, 90]<br>
+          SET target = 45<br>
+          SET found = False<br><br>
+          FOR index = 0 TO len(list) - 1 DO<br>
+          <span class="indent-1">IF list[index] == target THEN</span><br>
+          <span class="indent-2">SET found = True</span><br>
+          <span class="indent-1">ENDIF</span><br>
+          ENDFOR
         </div>
       </div>
       <div>
         <div class="code-title">Code B (Smart &amp; Fast)</div>
         <div class="code-pane good-code">
-SET list = [12, 45, 77, 32, 90]
-SET target = 45
-SET found = False
-
-FOR index = 0 TO len(list) - 1 DO
-  IF list[index] == target THEN
-    SET found = True
-    EXIT LOOP
-  ENDIF
-ENDFOR
+          SET list = [12, 45, 77, 32, 90]<br>
+          SET target = 45<br>
+          SET found = False<br><br>
+          FOR index = 0 TO len(list) - 1 DO<br>
+          <span class="indent-1">IF list[index] == target THEN</span><br>
+          <span class="indent-2">SET found = True</span><br>
+          <span class="indent-2">EXIT LOOP</span><br>
+          <span class="indent-1">ENDIF</span><br>
+          ENDFOR
         </div>
       </div>
     </div>
@@ -197,7 +197,7 @@ ENDFOR
     </div>
   </section>
 
-  <section style="margin-bottom: 40px;">
+  <section style="margin-bottom: 20px;">
     <h2>4. Code Brain Teasers</h2>
     <p class="instruction-text">Instruction: Read these real-world scenarios and think about how a linear search would behave before checking the answers.</p>
     
@@ -213,16 +213,6 @@ ENDFOR
         <p>Answer: A clever trick is to automatically move any item that is found right to the <strong>very front</strong> of the list (index 0). Because users tend to search for the same things over and over again (like opening their top social app), the linear search will find it on the very first try next time!</p>
       </details>
     </div>
-  </section>
-
-  <section style="background-color: #e0f2f1; padding: 25px; border-radius: 8px; border: 2px solid #00796B;">
-    <h2 style="margin-top: 0;">5. Live Lesson Challenges</h2>
-    <p class="instruction-text">Instruction: Be ready to chat about these three quick questions with the rest of the class during our live session.</p>
-    <ol style="font-size: 14px; padding-left: 20px;">
-      <li style="margin-bottom: 8px;"><strong>The Number Crunch:</strong> If you use a linear search on a smartphone contacts list containing 800 people, what is the maximum number of people the app might have to check?</li>
-      <li style="margin-bottom: 8px;"><strong>The Trade-off:</strong> If a linear search is so simple and works on completely messy data, why do we bother learning other search methods at all?</li>
-      <li style="margin-bottom: 8px;"><strong>Keywords Check:</strong> Make sure you can confidently explain what <strong>Worst-case Scenario</strong> and <strong>Early Exit</strong> mean in code.</li>
-    </ol>
   </section>
 
 </div>
