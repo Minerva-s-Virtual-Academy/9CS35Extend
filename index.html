@@ -70,7 +70,7 @@
   details p { padding-top: 10px; border-top: 1px solid #eee; margin-bottom: 0; font-size: 14px; }
 
   /* Visual Element Generation */
-  .visual-list { display: flex; gap: 6px; flex-wrap: wrap; margin: 15px 0; }
+  .visual-list { display: flex; gap: 6px; flex-wrap: wrap; margin: 15px 0; align-items: center; }
   .item-node {
     padding: 6px 12px;
     background: #edf2f7;
@@ -79,6 +79,7 @@
     font-family: monospace;
     font-size: 13px;
     font-weight: bold;
+    display: inline-block;
   }
   .item-node.highlight-target { background: #fee2e2; border-color: #f87171; color: #991b1b; }
 
@@ -101,13 +102,13 @@
 <div class="prep-container" role="main">
   
   <header>
-    <h1>Week 34 Extend: Thinking Like a Programmer</h1>
+    <h1>Week 35 Extend: Thinking Like a Programmer</h1>
     <p class="instruction-text">Instruction: Ready to level up? Let's look at how computers handle massive lists and how we can write better, faster code. Complete this before our live session.</p>
   </header>
 
   <section style="margin-bottom: 40px;">
     <h2>1. Speed and "Worst-Case Scenario"</h2>
-    <p>Imagine looking for your favorite gaming hoodie in a messy bedroom. If it's sitting right on top of the pile, you find it instantly. If it's at the very bottom (or in the washing machine downstairs), you have to check every single item before you find it.</p>
+    <p>Imagine looking for your favourite gaming hoodie in a messy bedroom. If it's sitting right on top of the pile, you find it instantly. If it's at the very bottom (or in the washing machine downstairs), you have to check every single item before you find it.</p>
     <p>Computers experience the exact same thing! We measure the efficiency of a search by looking at two different situations:</p>
     
     <div class="analysis-grid">
@@ -209,4 +210,72 @@ ENDFOR
     <div style="margin-bottom: 10px;">
       <details>
         <summary>Q2: The "Favourite App" trick. How can we make a linear search faster without sorting the data?</summary>
-        <p>Answer: A clever trick is to automatically move any item that is found right to the <strong>very front</strong> of the list (index
+        <p>Answer: A clever trick is to automatically move any item that is found right to the <strong>very front</strong> of the list (index 0). Because users tend to search for the same things over and over again (like opening their top social app), the linear search will find it on the very first try next time!</p>
+      </details>
+    </div>
+  </section>
+
+  <section style="background-color: #e0f2f1; padding: 25px; border-radius: 8px; border: 2px solid #00796B;">
+    <h2 style="margin-top: 0;">5. Live Lesson Challenges</h2>
+    <p class="instruction-text">Instruction: Be ready to chat about these three quick questions with the rest of the class during our live session.</p>
+    <ol style="font-size: 14px; padding-left: 20px;">
+      <li style="margin-bottom: 8px;"><strong>The Number Crunch:</strong> If you use a linear search on a smartphone contacts list containing 800 people, what is the maximum number of people the app might have to check?</li>
+      <li style="margin-bottom: 8px;"><strong>The Trade-off:</strong> If a linear search is so simple and works on completely messy data, why do we bother learning other search methods at all?</li>
+      <li style="margin-bottom: 8px;"><strong>Keywords Check:</strong> Make sure you can confidently explain what <strong>Worst-case Scenario</strong> and <strong>Early Exit</strong> mean in code.</li>
+    </ol>
+  </section>
+
+</div>
+
+<script>
+  function generateStressTest() {
+    const scaleSelect = document.getElementById('list-scale');
+    const chosenSize = parseInt(scaleSelect.value);
+    
+    const container = document.getElementById('stress-visualisation');
+    const metricsBox = document.getElementById('stress-metrics');
+    
+    container.innerHTML = "";
+    metricsBox.style.display = "block";
+    
+    // Create a mini visualization array preview snippet
+    let previewCount = Math.min(chosenSize, 8);
+    for(let i = 0; i < previewCount; i++) {
+      const randNum = Math.floor(Math.random() * 89) + 10;
+      const el = document.createElement('span');
+      el.className = "item-node";
+      el.textContent = `[${i}]: ${randNum}`;
+      container.appendChild(el);
+    }
+    
+    if (chosenSize > 8) {
+      const ellipses = document.createElement('span');
+      ellipses.style.fontWeight = "bold";
+      ellipses.style.fontSize = "13px";
+      ellipses.style.color = "#718096";
+      ellipses.style.margin = "0 5px";
+      ellipses.textContent = `... and ${chosenSize - 8} more items hidden in memory ...`;
+      container.appendChild(ellipses);
+    }
+    
+    // Create the final worst-case entry indicator box
+    const worstCaseNode = document.createElement('div');
+    worstCaseNode.className = "item-node highlight-target";
+    worstCaseNode.style.marginTop = "12px";
+    worstCaseNode.style.width = "100%";
+    worstCaseNode.innerHTML = `🔍 <strong>Worst-Case Test:</strong> Looking for an item at the very end of the list: index position <code>[${chosenSize - 1}]</code>`;
+    container.appendChild(worstCaseNode);
+
+    // Update statistics display layout panels
+    metricsBox.innerHTML = `
+      <p style="margin-bottom: 5px; font-weight: bold; color: #007BA6;">📈 Search Summary for ${chosenSize} Items:</p>
+      <ul style="padding-left: 20px; font-size: 13px; color: #4a5568;">
+        <li><strong>Best-case:</strong> Only <strong>1 check</strong> needed if the item is right at index 0.</li>
+        <li><strong>Worst-case:</strong> The computer must run exactly <strong>${chosenSize} checks</strong> back-to-back.</li>
+      </ul>
+    `;
+  }
+</script>
+
+</body>
+</html>
